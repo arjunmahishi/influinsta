@@ -50,6 +50,9 @@ func handleChosenVideo(chosen goinsta.Item) {
 	currentCaption := chosen.Caption.Text
 	authorUsername := chosen.User.Username
 
+	chosen.User.Follow()
+	log.Printf("followed %s", authorUsername)
+
 	err = Reposter.Publish(imageFile, authorUsername, currentCaption)
 	if err != nil {
 		log.Printf("Couldn't publish post: %s", err.Error())
