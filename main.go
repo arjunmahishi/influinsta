@@ -16,7 +16,7 @@ func main() {
 		go func(tag string) {
 			log.Printf("Creating a scout for the hashtag %s", tag)
 			scout := NewScout(tag)
-			scout.GetBestVideo()
+			scout.ScoutVideos()
 			scout.LikeCollectedVideos()
 			best, err := scout.GetBestVideo()
 			if err != nil {

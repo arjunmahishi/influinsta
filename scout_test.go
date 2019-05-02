@@ -6,15 +6,14 @@ import (
 )
 
 func Test_scoutClient_ScoutVideos(t *testing.T) {
-	testScout := scoutClient{
-		hashtag: "instrumental",
-	}
+	testScout := NewScout("instrumental")
 
 	testScout.ScoutVideos()
 
-	if len(testScout.videoCollection) < 1 {
-		t.Fail()
+	best, err := testScout.GetBestVideo()
+	if err != nil {
+		t.Fatalf(err.Error())
 	}
 
-	fmt.Println(len(testScout.videoCollection))
+	fmt.Printf(best.User.Username)
 }
