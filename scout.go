@@ -6,12 +6,19 @@ import (
 
 // Scout interface
 type Scout interface {
-	ScoutImage()
-	ScoutVoice()
+	ScoutImages()
+	ScoutVideos()
 	LikeCollectedImages()
 	LikeCollectedVideos()
 	GetBestImage() (*goinsta.Item, error)
 	GetBestVideo() (*goinsta.Item, error)
+}
+
+// NewScout constructor
+func NewScout(hashtag string) Scout {
+	return &scoutClient{
+		hashtag: hashtag,
+	}
 }
 
 // scoutClient responsible for performing actions on instagram
