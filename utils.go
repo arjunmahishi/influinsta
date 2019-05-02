@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 
 	"gopkg.in/ahmdrz/goinsta.v2"
 )
@@ -31,4 +32,12 @@ func getBestItem(items []goinsta.Item) (*goinsta.Item, error) {
 		}
 	}
 	return &bestItem, nil
+}
+
+func sessionExists(sessionPath string) bool {
+	info, err := os.Stat(sessionPath)
+	if os.IsNotExist(err) {
+		return false
+	}
+	return !info.IsDir()
 }

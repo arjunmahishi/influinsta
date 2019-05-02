@@ -37,7 +37,7 @@ func (s *scoutClient) ScoutImages() {
 
 // ScoutVideos for the hashtag
 func (s *scoutClient) ScoutVideos() {
-	s.imageCollection = GetInstagram().SearchHashtagForVideos(s.hashtag)
+	s.videoCollection = GetInstagram().SearchHashtagForVideos(s.hashtag)
 }
 
 // LikeCollectedImages likes all the images the scout has collected

@@ -9,14 +9,36 @@ import (
 
 var client *instaClient
 
+const (
+	sessionPath = ".goinsta-session"
+)
+
 func init() {
+	var insta *goinsta.Instagram
+	// if sessionExists(sessionPath) {
+	// 	var err error
+	// 	insta, err = goinsta.Import(sessionPath)
+	// 	if err != nil {
+	// 		log.Printf("couldn't cache the session: %s", err.Error())
+	// 		insta = goinsta.New(Config.Creds.Username, Config.Creds.Password)
+	// 	}
+	// } else {
+	insta = goinsta.New(Config.Creds.Username, Config.Creds.Password)
+	// }
+
 	client = &instaClient{
-		goinsta.New(Config.Creds.Username, Config.Creds.Password),
+		insta,
 	}
 	err := client.Login()
 	if err != nil {
-		panic("couldn't login to instagram")
+		log.Panicf("couldn't login to instagram: %s", err.Error())
 	}
+
+	err = client.Export(sessionPath)
+	if err != nil {
+		log.Printf("couldn't export login session: %s", err.Error())
+	}
+
 	log.Printf("[instagram-client] instagram client initiated for user: %s", client.Account.Username)
 }
 
