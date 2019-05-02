@@ -14,14 +14,16 @@ func main() {
 	for _, tag := range Config.Hashtags {
 		wg.Add(1)
 		go func(tag string) {
+			log.Printf("Creating a scout for the hashtag %s", tag)
 			scout := NewScout(tag)
 			scout.GetBestVideo()
 			scout.LikeCollectedVideos()
 			best, err := scout.GetBestVideo()
 			if err != nil {
 				log.Printf("Couldn't get best video: %s", err.Error())
+			} else {
+				chosenVideos = append(chosenVideos, *best)
 			}
-			chosenVideos = append(chosenVideos, *best)
 			wg.Done()
 		}(tag)
 	}
@@ -30,8 +32,10 @@ func main() {
 	video, err := getBestItem(chosenVideos)
 	if err != nil {
 		log.Printf("couldn't get best video from final list: %s", err.Error())
+		return
 	}
 
+	log.Printf("Chose a post by %s", video.User.Username)
 	handleChosenVideo(*video)
 }
 

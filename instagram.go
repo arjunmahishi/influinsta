@@ -79,5 +79,6 @@ func (ic *instaClient) Upload(imageFile io.ReadCloser, caption string) error {
 	if err != nil {
 		return err
 	}
+	log.Printf("[instagram-client] post uploaded")
 	return nil
 }
