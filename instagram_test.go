@@ -6,11 +6,11 @@ import (
 )
 
 func Test_instaClient_SearchHashtagForImages(t *testing.T) {
-	items, _ := GetInstagram().SearchHashtagForImages("instrumental")
+	items := GetInstagram().SearchHashtagForImages("instrumental")
 	fmt.Println(len(items))
 }
 
 func Test_instaClient_SearchHashtagForVideos(t *testing.T) {
-	items, _ := GetInstagram().SearchHashtagForVideos("instrumental")
+	items := GetInstagram().SearchHashtagForVideos("instrumental")
 	fmt.Println(len(items))
 }

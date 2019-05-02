@@ -22,8 +22,8 @@ func init() {
 
 // Instagram is an interface to interact with instagram
 type Instagram interface {
-	SearchHashtagForImages(hashtag string) ([]goinsta.Item, error)
-	SearchHashtagForVideos(hashtag string) ([]goinsta.Item, error)
+	SearchHashtagForImages(hashtag string) []goinsta.Item
+	SearchHashtagForVideos(hashtag string) []goinsta.Item
 	Upload(imageFile io.ReadCloser, caption string) error
 }
 
@@ -36,7 +36,7 @@ func GetInstagram() Instagram {
 	return client
 }
 
-func (ic *instaClient) SearchHashtagForImages(hashtag string) ([]goinsta.Item, error) {
+func (ic *instaClient) SearchHashtagForImages(hashtag string) []goinsta.Item {
 	var items []goinsta.Item
 	res := ic.NewHashtag(hashtag)
 	for res.Next() {
@@ -49,10 +49,10 @@ func (ic *instaClient) SearchHashtagForImages(hashtag string) ([]goinsta.Item, e
 		}
 		break
 	}
-	return items, nil
+	return items
 }
 
-func (ic *instaClient) SearchHashtagForVideos(hashtag string) ([]goinsta.Item, error) {
+func (ic *instaClient) SearchHashtagForVideos(hashtag string) []goinsta.Item {
 	var items []goinsta.Item
 	res := ic.NewHashtag(hashtag)
 	for res.Next() {
@@ -65,7 +65,7 @@ func (ic *instaClient) SearchHashtagForVideos(hashtag string) ([]goinsta.Item, e
 		}
 		break
 	}
-	return items, nil
+	return items
 }
 
 func (ic *instaClient) Upload(imageFile io.ReadCloser, caption string) error {
