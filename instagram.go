@@ -17,7 +17,7 @@ func init() {
 	if err != nil {
 		panic("couldn't login to instagram")
 	}
-	log.Printf("instagram client initiated for user: %s", client.Account.Username)
+	log.Printf("[instagram-client] instagram client initiated for user: %s", client.Account.Username)
 }
 
 // Instagram is an interface to interact with instagram
@@ -37,6 +37,7 @@ func GetInstagram() Instagram {
 }
 
 func (ic *instaClient) SearchHashtagForImages(hashtag string) []goinsta.Item {
+	log.Printf("[instagram-client] looking for images with hashtag %s", hashtag)
 	var items []goinsta.Item
 	res := ic.NewHashtag(hashtag)
 	for res.Next() {
@@ -49,10 +50,12 @@ func (ic *instaClient) SearchHashtagForImages(hashtag string) []goinsta.Item {
 		}
 		break
 	}
+	log.Printf("[instagram-client] Found %d images for the hashtag %s", len(items), hashtag)
 	return items
 }
 
 func (ic *instaClient) SearchHashtagForVideos(hashtag string) []goinsta.Item {
+	log.Printf("[instagram-client] looking for videos with hashtag %s", hashtag)
 	var items []goinsta.Item
 	res := ic.NewHashtag(hashtag)
 	for res.Next() {
@@ -65,10 +68,12 @@ func (ic *instaClient) SearchHashtagForVideos(hashtag string) []goinsta.Item {
 		}
 		break
 	}
+	log.Printf("[instagram-client] Found %d videos for the hashtag %s", len(items), hashtag)
 	return items
 }
 
 func (ic *instaClient) Upload(imageFile io.ReadCloser, caption string) error {
+	log.Printf("[instagram-client] uploading post")
 	defer imageFile.Close()
 	_, err := ic.UploadPhoto(imageFile, caption, 1, 1)
 	if err != nil {
