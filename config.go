@@ -5,6 +5,13 @@ import (
 	"io/ioutil"
 )
 
+var (
+	//Liked posts count
+	Liked = 0
+	// Followed count
+	Followed = 0
+)
+
 // Config holds all the config values
 var Config struct {
 	Creds struct {

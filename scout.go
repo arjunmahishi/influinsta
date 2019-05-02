@@ -34,14 +34,20 @@ func (s *scoutClient) ScoutVideos() {
 // LikeCollectedImages likes all the images the scout has collected
 func (s *scoutClient) LikeCollectedImages() {
 	for _, item := range s.imageCollection {
-		item.Like()
+		if Liked < int(Config.LikeThreshold) {
+			item.Like()
+			Liked++
+		}
 	}
 }
 
 // LikeCollectedVideos likes all the videos the scout has collected
 func (s *scoutClient) LikeCollectedVideos() {
 	for _, item := range s.videoCollection {
-		item.Like()
+		if Liked < int(Config.LikeThreshold) {
+			item.Like()
+			Liked++
+		}
 	}
 }
 
