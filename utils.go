@@ -1,8 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"net/http"
+
+	"gopkg.in/ahmdrz/goinsta.v2"
 )
 
 func downloadImage(url string) (io.ReadCloser, error) {
@@ -11,4 +14,21 @@ func downloadImage(url string) (io.ReadCloser, error) {
 		return nil, err
 	}
 	return resp.Body, nil
+}
+
+func getBestItem(items []goinsta.Item) (*goinsta.Item, error) {
+	mostLikes := -1
+	var bestItem goinsta.Item
+
+	if len(items) == 0 {
+		return nil, fmt.Errorf("the video collection is empty")
+	}
+
+	for _, item := range items {
+		if item.Likes > mostLikes {
+			bestItem = item
+			mostLikes = item.Likes
+		}
+	}
+	return &bestItem, nil
 }

@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"gopkg.in/ahmdrz/goinsta.v2"
 )
 
@@ -49,36 +47,10 @@ func (s *scoutClient) LikeCollectedVideos() {
 
 // GetBestImage from the collection
 func (s *scoutClient) GetBestImage() (*goinsta.Item, error) {
-	mostLikes := -1
-	var bestItem goinsta.Item
-
-	if len(s.imageCollection) == 0 {
-		return nil, fmt.Errorf("the image collection is empty")
-	}
-
-	for _, item := range s.imageCollection {
-		if item.Likes > mostLikes {
-			bestItem = item
-			mostLikes = item.Likes
-		}
-	}
-	return &bestItem, nil
+	return getBestItem(s.imageCollection)
 }
 
 // GetBestVideo from the collection
 func (s *scoutClient) GetBestVideo() (*goinsta.Item, error) {
-	mostLikes := -1
-	var bestItem goinsta.Item
-
-	if len(s.videoCollection) == 0 {
-		return nil, fmt.Errorf("the video collection is empty")
-	}
-
-	for _, item := range s.videoCollection {
-		if item.Likes > mostLikes {
-			bestItem = item
-			mostLikes = item.Likes
-		}
-	}
-	return &bestItem, nil
+	return getBestItem(s.videoCollection)
 }
