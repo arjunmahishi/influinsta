@@ -14,3 +14,10 @@ func Test_instaClient_SearchHashtagForVideos(t *testing.T) {
 	items := GetInstagram().SearchHashtagForVideos("instrumental")
 	fmt.Println(len(items))
 }
+
+func Test_instaClient_MyPost(t *testing.T) {
+	items := GetInstagram().MyPosts()
+	for _, item := range items {
+		fmt.Println(item.ID)
+	}
+}

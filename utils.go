@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strings"
 
 	"gopkg.in/ahmdrz/goinsta.v2"
 )
@@ -33,6 +34,16 @@ func getItemScore(item goinsta.Item) int {
 		len(item.Mentions)) / 5
 }
 
+func alreadyPosted(item goinsta.Item) bool {
+	myPosts := GetInstagram().MyPosts(5)
+	for _, post := range myPosts {
+		if strings.Contains(post.Caption.Text, item.Caption.Text) {
+			return true
+		}
+	}
+	return false
+}
+
 func getBestItem(items []goinsta.Item) (*goinsta.Item, error) {
 	bestScore := -1
 	var bestItem goinsta.Item
@@ -43,7 +54,7 @@ func getBestItem(items []goinsta.Item) (*goinsta.Item, error) {
 
 	for _, item := range items {
 		score := getItemScore(item)
-		if score > bestScore {
+		if score > bestScore && !alreadyPosted(item) {
 			bestItem = item
 			bestScore = score
 		}

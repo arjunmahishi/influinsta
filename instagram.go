@@ -47,6 +47,7 @@ type Instagram interface {
 	SearchHashtagForImages(hashtag string) []goinsta.Item
 	SearchHashtagForVideos(hashtag string) []goinsta.Item
 	Upload(imageFile io.ReadCloser, caption string) error
+	MyPosts(options ...interface{}) []goinsta.Item
 }
 
 type instaClient struct {
@@ -103,4 +104,13 @@ func (ic *instaClient) Upload(imageFile io.ReadCloser, caption string) error {
 	}
 	log.Printf("[instagram-client] post uploaded")
 	return nil
+}
+
+func (ic *instaClient) MyPosts(options ...interface{}) []goinsta.Item {
+	feed := ic.Account.Feed()
+	feed.Next()
+	if len(options) == 1 && len(feed.Items) >= options[0].(int) {
+		return feed.Items[:options[0].(int)]
+	}
+	return feed.Items
 }
