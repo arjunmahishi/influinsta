@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	initInstaClient()
 	chosenVideos := []goinsta.Item{}
 
 	var wg sync.WaitGroup
