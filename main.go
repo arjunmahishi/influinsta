@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"log"
 	"sync"
 
@@ -9,8 +8,6 @@ import (
 )
 
 func main() {
-	flag.Parse()
-
 	chosenVideos := []goinsta.Item{}
 
 	var wg sync.WaitGroup

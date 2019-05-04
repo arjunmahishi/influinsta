@@ -13,7 +13,7 @@ const (
 	sessionPath = ".goinsta-session"
 )
 
-func init() {
+func initInstaClient() {
 	var insta *goinsta.Instagram
 	// if sessionExists(sessionPath) {
 	// 	var err error
@@ -56,6 +56,9 @@ type instaClient struct {
 
 // GetInstagram return the single instagram client
 func GetInstagram() Instagram {
+	if client == nil {
+		initInstaClient()
+	}
 	return client
 }
 

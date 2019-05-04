@@ -27,6 +27,7 @@ var Config struct {
 }
 
 func init() {
+	flag.Parse()
 	conts, err := ioutil.ReadFile(*configPath)
 	if err != nil {
 		panic("Can't read the config file")
