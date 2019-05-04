@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"io/ioutil"
 )
 
@@ -10,6 +11,8 @@ var (
 	Liked = 0
 	// Followed count
 	Followed = 0
+
+	configPath = flag.String("config", "./config.json", "path of the config file")
 )
 
 // Config holds all the config values
@@ -24,7 +27,7 @@ var Config struct {
 }
 
 func init() {
-	conts, err := ioutil.ReadFile("./config.json")
+	conts, err := ioutil.ReadFile(*configPath)
 	if err != nil {
 		panic("Can't read the config file")
 	}
