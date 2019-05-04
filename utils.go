@@ -17,8 +17,24 @@ func downloadImage(url string) (io.ReadCloser, error) {
 	return resp.Body, nil
 }
 
+func sessionExists(sessionPath string) bool {
+	info, err := os.Stat(sessionPath)
+	if os.IsNotExist(err) {
+		return false
+	}
+	return !info.IsDir()
+}
+
+func getItemScore(item goinsta.Item) int {
+	return (item.Likes +
+		item.CommentCount +
+		int(item.DeviceTimestamp) +
+		int(item.ViewCount) +
+		len(item.Mentions)) / 5
+}
+
 func getBestItem(items []goinsta.Item) (*goinsta.Item, error) {
-	mostLikes := -1
+	bestScore := -1
 	var bestItem goinsta.Item
 
 	if len(items) == 0 {
@@ -26,18 +42,11 @@ func getBestItem(items []goinsta.Item) (*goinsta.Item, error) {
 	}
 
 	for _, item := range items {
-		if item.Likes > mostLikes {
+		score := getItemScore(item)
+		if score > bestScore {
 			bestItem = item
-			mostLikes = item.Likes
+			bestScore = score
 		}
 	}
 	return &bestItem, nil
-}
-
-func sessionExists(sessionPath string) bool {
-	info, err := os.Stat(sessionPath)
-	if os.IsNotExist(err) {
-		return false
-	}
-	return !info.IsDir()
 }
