@@ -19,8 +19,8 @@ This project uses a package called `goinsta` by @ahmdrz for interacting with ins
             "password": "password"
         },
         "hashtags": ["hashtags", "you", "want", "to", "follow"],
-        "likeThreshold": 300, // max likes every run
-        "followThreshold": 300  // max follows every run
+        "likeThreshold": 300,
+        "followThreshold": 300
     }
     ```
 - Run either manually or create a cron to schedule it
