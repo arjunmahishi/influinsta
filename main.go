@@ -54,7 +54,7 @@ func reshareVideos() {
 	}
 	wg.Wait()
 
-	video, err := getBestItem(chosenVideos)
+	video, err := selectBestItem(chosenVideos)
 	if err != nil {
 		log.Printf("couldn't get best video from final list: %s", err.Error())
 		return

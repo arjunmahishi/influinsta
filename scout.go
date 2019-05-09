@@ -68,10 +68,10 @@ func (s *scoutClient) LikeCollectedVideos() {
 
 // GetBestImage from the collection
 func (s *scoutClient) GetBestImage() (*goinsta.Item, error) {
-	return getBestItem(s.imageCollection)
+	return selectBestItem(s.imageCollection)
 }
 
 // GetBestVideo from the collection
 func (s *scoutClient) GetBestVideo() (*goinsta.Item, error) {
-	return getBestItem(s.videoCollection)
+	return selectBestItem(s.videoCollection)
 }

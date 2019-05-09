@@ -31,7 +31,8 @@ func getItemScore(item goinsta.Item) int {
 		item.CommentCount +
 		int(item.DeviceTimestamp) +
 		int(item.ViewCount) +
-		len(item.Mentions)) / 5
+		len(item.Hashtags()) +
+		len(item.Mentions)) / 6
 }
 
 func alreadyPosted(item goinsta.Item) bool {
@@ -44,7 +45,7 @@ func alreadyPosted(item goinsta.Item) bool {
 	return false
 }
 
-func getBestItem(items []goinsta.Item) (*goinsta.Item, error) {
+func selectBestItem(items []goinsta.Item) (*goinsta.Item, error) {
 	bestScore := -1
 	var bestItem goinsta.Item
 
