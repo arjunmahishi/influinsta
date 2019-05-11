@@ -21,13 +21,26 @@ This current behavior can be modified in the main function.
         },
         "hashtags": ["hashtags", "you", "want", "to", "follow"],
         "likeThreshold": 300,
-        "followThreshold": 300
+        "followThreshold": 300,
+        "actions": [
+            {
+                "name": "action-name",
+                "args": ["arg1", "arg2"]
+            }
+        ]
     }
     ```
+    See [list of available actions](##List-of-available-actions).
+
 - Run either manually or schedule it as a cron
     ```bash
     $ ./influinsta -config path-to/config.json
     ```
+
+## List of available actions
+- `reshare-video` - Looks for videos for the given `hashtags`, selects the best one, and reposts it 
+- `random-comments` [WIP] - Looks for videos/images for the given `hashtags` and randomly comments on the posts
+- `random-follow` [WIP] - Looks for videos/images for the given `hashtags` and randomly follows the followers of that `hashtag`
 
 ## In the (near) future
 - Make the automation flow configurable through config.json
