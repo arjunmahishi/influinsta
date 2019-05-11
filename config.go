@@ -24,6 +24,10 @@ var Config struct {
 	Hashtags        []string
 	LikeThreshold   uint16
 	FollowThreshold uint16
+	Actions         []struct {
+		Name string
+		Args []string
+	}
 }
 
 func init() {
