@@ -44,3 +44,10 @@ func Test_getAction(t *testing.T) {
 		})
 	}
 }
+
+func Test_makeRandomComments(t *testing.T) {
+	err := makeRandomComments()
+	if err != nil {
+		t.Fatalf(err.Error())
+	}
+}

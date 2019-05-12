@@ -31,8 +31,3 @@ func (p *publishClient) Publish(imageFile io.ReadCloser, username, currentCaptio
 	caption := p.describe(username, currentCaption)
 	return GetInstagram().Upload(imageFile, caption)
 }
-
-var repostTemplate = `Checkout the new post by @%s
----
-%s
-#instrubot`

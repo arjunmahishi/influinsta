@@ -3,9 +3,11 @@ package main
 import (
 	"fmt"
 	"io"
+	"math/rand"
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	"gopkg.in/ahmdrz/goinsta.v2"
 )
@@ -61,4 +63,9 @@ func selectBestItem(items []goinsta.Item) (*goinsta.Item, error) {
 		}
 	}
 	return &bestItem, nil
+}
+
+func getRandomGenericComment() string {
+	rand.Seed(time.Now().Unix())
+	return genericComments[rand.Intn(len(genericComments))]
 }

@@ -87,6 +87,23 @@ func handleChosenVideo(chosen goinsta.Item) {
 }
 
 func makeRandomComments(args ...interface{}) error {
+	commetCount := 0
+	var wg sync.WaitGroup
+	for _, tag := range Config.Hashtags {
+		wg.Add(1)
+		go func(tag string) {
+			posts := GetInstagram().SearchHashtagForVideos(tag)
+			for _, post := range posts {
+				err := post.Comments.Add(getRandomGenericComment())
+				if err == nil {
+					commetCount++
+				}
+			}
+			wg.Done()
+		}(tag)
+	}
+	wg.Wait()
+	log.Printf("commented on %d post(s)", commetCount)
 	return nil
 }
 
