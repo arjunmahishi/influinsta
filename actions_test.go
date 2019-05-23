@@ -19,6 +19,11 @@ func Test_getAction(t *testing.T) {
 			wantErr: false,
 		},
 		{
+			name:    "reshare image",
+			args:    args{actionName: "reshare-image"},
+			wantErr: false,
+		},
+		{
 			name:    "random follow",
 			args:    args{actionName: "random-follow"},
 			wantErr: false,

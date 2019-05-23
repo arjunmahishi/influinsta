@@ -13,7 +13,8 @@ type Action func(args ...interface{}) error
 
 // Actions maps strings with functions
 var Actions = map[string]Action{
-	"reshare-video":   reshareBestVideos,
+	"reshare-video":   reshareBestVideo,
+	"reshare-image":   reshareBestImage,
 	"random-comments": makeRandomComments,
 	"random-follow":   followRandomPeople,
 }
@@ -34,8 +35,8 @@ func getAction(actionName string) (Action, error) {
 	return nil, fmt.Errorf("the action '%s' does not exist", actionName)
 }
 
-func reshareBestVideos(args ...interface{}) error {
-	chosenVideos := []goinsta.Item{}
+func reshareBestItem(itemType string) error {
+	chosenItems := []goinsta.Item{}
 
 	var wg sync.WaitGroup
 	for _, tag := range Config.Hashtags {
@@ -43,31 +44,53 @@ func reshareBestVideos(args ...interface{}) error {
 		go func(tag string) {
 			log.Printf("Creating a scout for the hashtag %s", tag)
 			scout := NewScout(tag)
-			scout.ScoutVideos()
-			scout.LikeCollectedVideos()
-			best, err := scout.GetBestVideo()
-			if err != nil {
-				log.Printf("Couldn't get best video: %s", err.Error())
-			} else {
-				chosenVideos = append(chosenVideos, *best)
+
+			switch itemType {
+			case "video":
+				scout.ScoutVideos()
+				scout.LikeCollectedVideos()
+				best, err := scout.GetBestVideo()
+				if err != nil {
+					log.Printf("Couldn't get best video: %s", err.Error())
+				} else {
+					chosenItems = append(chosenItems, *best)
+				}
+			case "image":
+				scout.ScoutImages()
+				scout.LikeCollectedImages()
+				best, err := scout.GetBestImage()
+				if err != nil {
+					log.Printf("Couldn't get best video: %s", err.Error())
+				} else {
+					chosenItems = append(chosenItems, *best)
+				}
 			}
+
 			wg.Done()
 		}(tag)
 	}
 	wg.Wait()
 
-	video, err := selectBestItem(chosenVideos)
+	item, err := selectBestItem(chosenItems)
 	if err != nil {
-		return fmt.Errorf("couldn't get best video from final list: %s", err.Error())
+		return fmt.Errorf("couldn't get best item from final list: %s", err.Error())
 	}
 
-	log.Printf("Chose a post by %s", video.User.Username)
-	handleChosenVideo(*video)
+	log.Printf("Chose a post by %s", item.User.Username)
+	handleChosenItem(*item)
 	return nil
 }
 
-func handleChosenVideo(chosen goinsta.Item) {
-	log.Printf("handling the chosen video")
+func reshareBestVideo(args ...interface{}) error {
+	return reshareBestItem("video")
+}
+
+func reshareBestImage(args ...interface{}) error {
+	return reshareBestItem("image")
+}
+
+func handleChosenItem(chosen goinsta.Item) {
+	log.Printf("handling the chosen item")
 	imageFile, err := downloadImage(chosen.Images.GetBest())
 	if err != nil {
 		log.Printf("Couldn't download image: %s", err.Error())
