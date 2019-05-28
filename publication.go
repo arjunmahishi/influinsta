@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"io"
 )
@@ -29,5 +30,8 @@ func (p *publishClient) describe(username, currentCaption string) string {
 
 func (p *publishClient) Publish(imageFile io.ReadCloser, username, currentCaption string) error {
 	caption := p.describe(username, currentCaption)
+	if caption == "" {
+		return errors.New("the caption could not be generated")
+	}
 	return GetInstagram().Upload(imageFile, caption)
 }

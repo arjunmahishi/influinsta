@@ -131,5 +131,22 @@ func makeRandomComments(args ...interface{}) error {
 }
 
 func followRandomPeople(args ...interface{}) error {
+	followCount := 0
+	var wg sync.WaitGroup
+	for _, tag := range Config.Hashtags {
+		wg.Add(1)
+		go func(tag string) {
+			posts := GetInstagram().SearchHashtagForVideos(tag)
+			for _, post := range posts {
+				err := post.User.Follow()
+				if err == nil {
+					followCount++
+				}
+			}
+			wg.Done()
+		}(tag)
+	}
+	wg.Wait()
+	log.Printf("followed %d people", followCount)
 	return nil
 }
