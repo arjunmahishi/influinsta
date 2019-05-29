@@ -1,8 +1,6 @@
 package main
 
 import (
-	"log"
-
 	"gopkg.in/ahmdrz/goinsta.v2"
 )
 
@@ -42,28 +40,12 @@ func (s *scoutClient) ScoutVideos() {
 
 // LikeCollectedImages likes all the images the scout has collected
 func (s *scoutClient) LikeCollectedImages() {
-	tempLiked := 0
-	for _, item := range s.imageCollection {
-		if Liked < int(Config.LikeThreshold) {
-			item.Like()
-			Liked++
-			tempLiked++
-		}
-	}
-	log.Printf("liked %d posts", tempLiked)
+	likeItems(s.imageCollection)
 }
 
 // LikeCollectedVideos likes all the videos the scout has collected
 func (s *scoutClient) LikeCollectedVideos() {
-	tempLiked := 0
-	for _, item := range s.videoCollection {
-		if Liked < int(Config.LikeThreshold) {
-			item.Like()
-			Liked++
-			tempLiked++
-		}
-	}
-	log.Printf("liked %d posts", tempLiked)
+	likeItems(s.videoCollection)
 }
 
 // GetBestImage from the collection

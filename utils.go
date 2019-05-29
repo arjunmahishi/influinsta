@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
+	"log"
 	"math/rand"
 	"net/http"
 	"os"
@@ -68,4 +69,18 @@ func selectBestItem(items []goinsta.Item) (*goinsta.Item, error) {
 func getRandomGenericComment() string {
 	rand.Seed(time.Now().Unix())
 	return genericComments[rand.Intn(len(genericComments))]
+}
+
+func likeItems(items []goinsta.Item) {
+	tempLiked := 0
+
+	for _, item := range items {
+		if Liked < int(Config.LikeThreshold) {
+			if err := item.Like(); err == nil {
+				Liked++
+				tempLiked++
+			}
+		}
+	}
+	log.Printf("liked %d posts", tempLiked)
 }
