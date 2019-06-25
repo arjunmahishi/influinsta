@@ -38,15 +38,13 @@ This current behavior can be modified in the main function.
     ```
 
 ## List of available actions
-- `reshare-video` - Looks for videos for the given `hashtags`, selects the best one, and reposts it 
-- `random-comments` [WIP] - Looks for videos/images for the given `hashtags` and randomly comments on the posts
-- `random-follow` [WIP] - Looks for videos/images for the given `hashtags` and randomly follows the followers of that `hashtag`
+- `reshare-video` - Looks for videos for the given `hashtags`, selects the best one and reposts it 
+- `reshare-image` - Looks for images for the given `hashtags`, selects the best one and reposts it
+- `random-comments` - Looks for videos/images for the given `hashtags` and randomly comments on the posts
+- `random-follow` - Looks for videos/images for the given `hashtags` and randomly follows the followers of that `hashtag`
 
 ## In the (near) future
-- Make the automation flow configurable through config.json
 - Find a way to post videos
-- Autonomously comment on posts
-- Follow revelant users
 - Auto-reply on DM
 
 ## Instagram client
