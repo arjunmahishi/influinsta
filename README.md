@@ -1,4 +1,4 @@
-# influinsta
+# influinsta [![Build Status](https://travis-ci.com/arjunmahishi/influinsta.svg?branch=master)](https://travis-ci.com/arjunmahishi/influinsta)
 A tool that automates your way to becoming an Instagram influencer  
 
 ## What it does
