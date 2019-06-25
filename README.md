@@ -2,9 +2,7 @@
 A tool that automates your way to becoming an Instagram influencer  
 
 ## What it does
-For now, it searches for a given set of hashtags, selects the top post based on parameters like number of likes, number of views etc, and reposts the image with credits to the user. While doing this, it likes all the posts it has encountered (sticking to the likeThreshold), follows the user whose post it reposts. 
-
-This current behavior can be modified in the main function. 
+It automates certain `actions` on Instagram. An `action` could be anything tedious like following a large number of people, commenting on random posts for a given hashtag, repost images/videos etc. These actions are being done manually by people (which have proven to increase their follower count). But these tasks are tedious and should not be done by human beings. So, this tool helps automate those actions and save a lot of time while making it more efficient.
 
 ## How to use
 - Build the binary from source
