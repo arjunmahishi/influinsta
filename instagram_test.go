@@ -15,6 +15,11 @@ func Test_instaClient_SearchHashtagForVideos(t *testing.T) {
 	fmt.Println(len(items))
 }
 
+func Test_instaClient_SearchHashtagForAll(t *testing.T) {
+	items := GetInstagram().SearchHashtagForAll("instrumental")
+	fmt.Println(len(items))
+}
+
 func Test_instaClient_MyPost(t *testing.T) {
 	items := GetInstagram().MyPosts()
 	for _, item := range items {

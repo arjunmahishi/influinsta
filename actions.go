@@ -115,7 +115,7 @@ func makeRandomComments(args ...interface{}) error {
 	for _, tag := range Config.Hashtags {
 		wg.Add(1)
 		go func(tag string) {
-			posts := GetInstagram().SearchHashtagForVideos(tag)
+			posts := GetInstagram().SearchHashtagForAll(tag)
 			for _, post := range posts {
 				err := post.Comments.Add(getRandomGenericComment())
 				if err == nil {
@@ -136,7 +136,7 @@ func followRandomPeople(args ...interface{}) error {
 	for _, tag := range Config.Hashtags {
 		wg.Add(1)
 		go func(tag string) {
-			posts := GetInstagram().SearchHashtagForVideos(tag)
+			posts := GetInstagram().SearchHashtagForAll(tag)
 			for _, post := range posts {
 				err := post.User.Follow()
 				if err == nil {
