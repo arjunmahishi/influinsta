@@ -7,7 +7,7 @@ if [ $TRAVIS_EVENT_TYPE != "pull_request"  ]; then
         git checkout master
         git add *
         git reset coverage/*
-        git commit -m "Travis build: $TRAVIS_BUILD_NUMBER\n[skip ci]"
+        git commit -m "[skip ci] Travis build: $TRAVIS_BUILD_NUMBER"
         echo "pushing to master branch..."
         git push -f "https://${gh_token}@github.com/arjunmahishi/influinsta.git" master 
     fi
