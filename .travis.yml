@@ -1,4 +1,10 @@
 language: go
 
 script:
-  - go vet -v ./...
+    - go vet -v ./...
+
+after_success:
+    - chmod +x scripts/build.sh
+    - chmod +x .travis/push.sh
+    - scripts/build.sh
+    - .travis/push.sh
