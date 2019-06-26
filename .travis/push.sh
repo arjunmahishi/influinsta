@@ -9,6 +9,6 @@ if [ $TRAVIS_EVENT_TYPE != "pull_request"  ]; then
         git reset coverage/*
         git commit -m "Travis build: $TRAVIS_BUILD_NUMBER\n[skip ci]"
         echo "pushing to master branch..."
-        git push -f "https://${gh_token}@github.com/arjunmahishi/30-seconds-of-automation.git" master 
+        git push -f "https://${gh_token}@github.com/arjunmahishi/influinsta.git" master 
     fi
 fi
