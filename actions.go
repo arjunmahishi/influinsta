@@ -17,6 +17,7 @@ var Actions = map[string]Action{
 	"reshare-image":   reshareBestImage,
 	"random-comments": makeRandomComments,
 	"random-follow":   followRandomPeople,
+	"like-posts":      likePosts,
 }
 
 func performAction(actionName string, args ...interface{}) error {
@@ -148,5 +149,26 @@ func followRandomPeople(args ...interface{}) error {
 	}
 	wg.Wait()
 	log.Printf("followed %d people", followCount)
+	return nil
+}
+
+func likePosts(args ...interface{}) error {
+	var wg sync.WaitGroup
+	for _, tag := range Config.Hashtags {
+		wg.Add(1)
+		go func(tag string) {
+			posts := GetInstagram().SearchHashtagForAll(tag)
+			count := 0
+			for _, post := range posts {
+				if err := post.Like(); err != nil {
+					continue
+				}
+				count++
+			}
+			log.Printf("Liked %d posts for the tag '%s'", count, tag)
+			wg.Done()
+		}(tag)
+	}
+	wg.Wait()
 	return nil
 }

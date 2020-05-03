@@ -13,7 +13,7 @@ const (
 	sessionPath = ".goinsta-session"
 )
 
-func initInstaClient() {
+func initInstaClient() error {
 	var insta *goinsta.Instagram
 	// if sessionExists(sessionPath) {
 	// 	var err error
@@ -32,14 +32,17 @@ func initInstaClient() {
 	err := client.Login()
 	if err != nil {
 		log.Panicf("couldn't login to instagram: %s", err.Error())
+		return err
 	}
 
 	err = client.Export(sessionPath)
 	if err != nil {
 		log.Printf("couldn't export login session: %s", err.Error())
+		return err
 	}
 
 	log.Printf("[instagram-client] instagram client initiated for user: %s", client.Account.Username)
+	return nil
 }
 
 // Instagram is an interface to interact with instagram

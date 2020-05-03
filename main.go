@@ -5,7 +5,9 @@ import (
 )
 
 func main() {
-	initInstaClient()
+	if err := initInstaClient(); err != nil {
+		log.Fatalln("unable to init the instagram client")
+	}
 
 	for _, action := range Config.Actions {
 		err := performAction(action.Name, action.Args)
