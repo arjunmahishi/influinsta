@@ -3,8 +3,10 @@ package main
 import (
 	"io"
 	"log"
+	"os"
 
-	"gopkg.in/ahmdrz/goinsta.v2"
+	"github.com/ahmdrz/goinsta"
+	input "github.com/tcnksm/go-input"
 )
 
 var client *instaClient
@@ -29,13 +31,39 @@ func initInstaClient() error {
 	client = &instaClient{
 		insta,
 	}
-	err := client.Login()
-	if err != nil {
-		log.Panicf("couldn't login to instagram: %s", err.Error())
-		return err
+	if err := insta.Login(); err != nil {
+		switch v := err.(type) {
+		case goinsta.ChallengeError:
+			err := insta.Challenge.Process(v.Challenge.APIPath)
+			if err != nil {
+				log.Fatalln(err)
+			}
+
+			ui := &input.UI{
+				Writer: os.Stdout,
+				Reader: os.Stdin,
+			}
+
+			query := "What is SMS code for instagram?"
+			code, err := ui.Ask(query, &input.Options{
+				Default:  "000000",
+				Required: true,
+				Loop:     true,
+			})
+			if err != nil {
+				log.Fatalln(err)
+			}
+
+			err = insta.Challenge.SendSecurityCode(code)
+			if err != nil {
+				log.Fatalln(err)
+			}
+		}
+
+		log.Fatalln(err)
 	}
 
-	err = client.Export(sessionPath)
+	err := client.Export(sessionPath)
 	if err != nil {
 		log.Printf("couldn't export login session: %s", err.Error())
 		return err

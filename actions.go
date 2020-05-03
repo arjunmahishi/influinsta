@@ -5,7 +5,7 @@ import (
 	"log"
 	"sync"
 
-	"gopkg.in/ahmdrz/goinsta.v2"
+	"github.com/ahmdrz/goinsta"
 )
 
 // Action type def
