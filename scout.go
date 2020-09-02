@@ -1,6 +1,6 @@
 package main
 
-import "github.com/ahmdrz/goinsta"
+import "github.com/ahmdrz/goinsta/v2"
 
 // Scout interface
 type Scout interface {

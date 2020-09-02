@@ -5,7 +5,7 @@ import (
 	"log"
 	"sync"
 
-	"github.com/ahmdrz/goinsta"
+	"github.com/ahmdrz/goinsta/v2"
 )
 
 // Action type def

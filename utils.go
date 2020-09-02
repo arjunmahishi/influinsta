@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ahmdrz/goinsta"
+	"github.com/ahmdrz/goinsta/v2"
 )
 
 func downloadImage(url string) (io.ReadCloser, error) {

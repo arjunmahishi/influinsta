@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/ahmdrz/goinsta"
+	"github.com/ahmdrz/goinsta/v2"
 	input "github.com/tcnksm/go-input"
 )
 
